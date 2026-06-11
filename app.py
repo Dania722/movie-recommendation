@@ -26,15 +26,23 @@ PICKLE_FILE = "movie_Similarity.pkl"
 # Download Similarity Matrix
 @st.cache_resource
 def load_large_similarity_matrix(file_id, destination):
+    # Agar file majood hai par uska size 100MB se kam hai, to matlab wo corrupted hai. Usey delete krein!
+    if os.path.exists(destination) and os.path.getsize(destination) < 100000000:
+        os.remove(destination)
 
     if not os.path.exists(destination):
-
-        with st.spinner("Downloading similarity matrix... Please wait."):
+        with st.spinner("Downloading similarity matrix from Google Drive... Please wait."):
+            # gdown ke liye direct static URL standard tareeqa hota hai
             url = f"https://drive.google.com/uc?id={file_id}"
-            gdown.download(url, destination, quiet=False)
+            try:
+                gdown.download(url, destination, quiet=False, fuzzy=True)
+            except Exception as e:
+                st.error(f"Download failed: {e}")
+                st.stop()
 
     with open(destination, "rb") as f:
         return pickle.load(f)
+
 
 
 # Load Movies Data
