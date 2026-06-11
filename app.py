@@ -14,10 +14,6 @@ st.set_page_config(
 )
 
 
-# 1. Configuration
-FILE_ID = "https://drive.google.com/file/d/1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC/view?usp=sharing"
-PICKLE_FILE = "movie_Similarity.pkl"
-URL = f"https://google.com{FILE_ID}"
 
 
 # Introduction
@@ -25,9 +21,21 @@ st.title('Film Recommendation System')
 st.write("Welcome to the Film Recommendation System!")
 st.write("Unlock Your Next Cinematic Adventure with Our Movie Recommendation System – Tailored Suggestions for Every Film Enthusiast!")
 
+
+ 1. Google Drive Configuration
+# Put your long Google Drive sharing file ID between the quotes below:
+FILE_ID = ""https://drive.google.com/file/d/1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC/view?usp=sharing""
+PICKLE_FILE = "movie_Similarity.pkl"
+URL = f"https://google.com{FILE_ID}"
+
+# 2. Automated Download Check
+if not os.path.exists(PICKLE_FILE):
+    with st.spinner("Downloading recommendation matrix from Google Drive..."):
+        urllib.request.urlretrieve(URL, PICKLE_FILE)
+
 # Load data
 movies = pickle.load(open('movie_recommender.pkl', 'rb'))
-similarity = pickle.load(open('movie_Similarity.pkl', 'rb'))
+similarity = pickle.load(open(PICKLE_FILE, 'rb'))
 
 # Define the fetch_poster function
 # def fetch_poster(movie_id):
