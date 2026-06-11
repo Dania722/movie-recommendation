@@ -23,7 +23,7 @@ st.write("Unlock Your Next Cinematic Adventure with Our Movie Recommendation Sys
 
 
 # Put your long Google Drive sharing file ID between the quotes below:
-FILE_ID = ""https://drive.google.com/file/d/1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC/view?usp=sharing""
+FILE_ID = "1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC"
 PICKLE_FILE = "movie_Similarity.pkl"
 URL = f"https://google.com{FILE_ID}"
 
