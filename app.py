@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 from PIL import Image
 import urllib.request
-
+import os
 
 # Set page configuration
 st.set_page_config(
