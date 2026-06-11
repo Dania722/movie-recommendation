@@ -32,7 +32,8 @@ def load_large_similarity_matrix(file_id, destination):
 
     if not os.path.exists(destination):
         with st.spinner("Downloading similarity matrix from Google Drive... Please wait."):
-            url = f"https://google.com{file_id}"
+            url = f"https://drive.google.com/file/d/{file_id}"
+          #  https://drive.google.com/file/d/1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC/view?usp=sharing
             try:
                 # REMOVED FUZZY=TRUE FROM THE LINE BELOW
                 gdown.download(url, destination, quiet=False)
