@@ -45,7 +45,8 @@ def load_large_similarity_matrix(file_id, destination):
 
 
 # Load Movies Data
-movies = pickle.load(open("movie_recommender.pkl", "rb"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+movies = pickle.load(open(os.path.join(BASE_DIR, "movie_recommender.pkl"), "rb"))
 
 # Load Similarity Matrix
 similarity = load_large_similarity_matrix(FILE_ID, PICKLE_FILE)
