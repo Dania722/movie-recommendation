@@ -48,10 +48,24 @@ def load_large_similarity_matrix(file_id, destination):
 
 
 # Load Movies Data
-movies = pickle.load(open("movie_recommender.pkl", "rb"))
+#movies = pickle.load(open("movie_recommender.pkl", "rb"))
 
 # Load Similarity Matrix
-similarity = load_large_similarity_matrix(FILE_ID, PICKLE_FILE)
+#similarity = load_large_similarity_matrix(FILE_ID, PICKLE_FILE)
+
+# --- 5. Load Models Safely ---
+try:
+    movies = pickle.load(open("movie_recommender.pkl", "rb"))
+    similarity = load_large_similarity_matrix(FILE_ID, PICKLE_FILE)
+except (pickle.UnpicklingError, EOFError, ValueError) as e:
+    # Agar Google Drive block karega to kharab file delete ho jayegi aur app crash nahi hoga
+    if os.path.exists(PICKLE_FILE):
+        os.remove(PICKLE_FILE)
+        
+    st.error("⚠️ Google Drive Download Limit Exceeded! Google Drive ne temporary download block kar diya hai.")
+    st.warning("👉 Iska hal yeh hai: Apne Google Drive par jayen, file par right-click karke uski ek 'Make a copy' (Copy) banayein. Us nayi copy ko dubara share karke 'Anyone with link' karein aur uski FILE_ID yahan app.py mein badal dein.")
+    st.info("App ko dubara chalane ke liye niche right corner mein 'Manage app' -> 'Reboot App' par click karein.")
+    st.stop()
 
 
 # Fetch Poster Function
