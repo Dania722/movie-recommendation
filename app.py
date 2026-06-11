@@ -26,17 +26,14 @@ PICKLE_FILE = "movie_Similarity.pkl"
 # Download Similarity Matrix
 @st.cache_resource
 def load_large_similarity_matrix(file_id, destination):
-    # Fix for previous broken downloads
-    if os.path.exists(destination) and os.path.getsize(destination) < 100000000:
+    if os.path.exists(destination) and os.path.getsize(destination) < 100_000_000:
         os.remove(destination)
 
     if not os.path.exists(destination):
-        with st.spinner("Downloading similarity matrix from Google Drive... Please wait."):
-            url = f"https://drive.google.com/file/d/{file_id}"
-          #  https://drive.google.com/file/d/1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC/view?usp=sharing
+        with st.spinner("Downloading similarity matrix... Please wait."):
+            url = f"https://drive.google.com/uc?id={file_id}"
             try:
-                # REMOVED FUZZY=TRUE FROM THE LINE BELOW
-                gdown.download(url, destination, quiet=False)
+                gdown.download(url, destination, quiet=False, fuzzy=True)
             except Exception as e:
                 st.error(f"Download failed: {e}")
                 st.stop()
