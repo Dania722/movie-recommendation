@@ -27,10 +27,7 @@ FILE_ID = "1StVVF1vP6s4XizTl4A78S2eIVvzVOaAC"
 PICKLE_FILE = "movie_Similarity.pkl"
 URL = f"https://google.com{FILE_ID}"
 
-# Automated Download Check
-if not os.path.exists(PICKLE_FILE):
-    with st.spinner("Downloading recommendation matrix from Google Drive..."):
-        urllib.request.urlretrieve(URL, PICKLE_FILE)
+
 
 # Load data
 movies = pickle.load(open('movie_recommender.pkl', 'rb'))
