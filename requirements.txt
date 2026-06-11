@@ -6,3 +6,4 @@ seaborn
 streamlit
 requests
 nltk
+gdown
